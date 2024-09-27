@@ -34,7 +34,7 @@ export default function RootLayout({
    <body
         className={cn(
           `${geistSans.variable} ${geistMono.variable} antialiased`,
-          "min-h-screen bg-background font-sans",
+          "min-h-screen bg-slate-50 font-sans",
           fontSans.variable
         )}
       >
