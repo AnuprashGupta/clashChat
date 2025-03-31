@@ -1,27 +1,18 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import {Inter as FontSans} from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import ClientSessionProvider from "./providers/ClientSessionProvider";
 
 const fontSans = FontSans({
-  subsets:["latin"],
-  variable:"--font-sans",
-})
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title: "Clashing Chat",
-  description: "Get the chat done",
+  title: "Clash App",
+  description: "Add your VS to start clashing",
 };
 
 export default function RootLayout({
@@ -31,14 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-   <body
+      <body
         className={cn(
-          `${geistSans.variable} ${geistMono.variable} antialiased`,
-          "min-h-screen bg-slate-50 font-sans",
+          "min-h-screen  font-sans antialiased bg-slate-50",
           fontSans.variable
         )}
       >
-        {children}
+        <ClientSessionProvider>{children}</ClientSessionProvider>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

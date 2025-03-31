@@ -1,50 +1,27 @@
+import Login from "@/components/auth/Login";
 import React from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { redirect } from "next/navigation";
 
-export default function login() {
+export default async function login() {
+  const session = await getServerSession(authOptions);
+  if (session !== null) {
+    redirect("/dashboard");
+  }
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-[550px] bg-white rounded-xl py-5 px-10 shadow-md">
-        <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-400 to-purple-500 text-transparent text-center bg-clip-text">
-          Clash Chat
-        </h1>
-        <h1 className="text-3xl font-bold">Login</h1>
-        <p>Welcome Back</p>
-        <form>
-          <div className="mt-4">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-            />
-          </div>
-
-          <div className="mt-4">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              name="email"
-              placeholder="Enter your password"
-            />
-
-            <div className="text-right font-bold">
-              <Link href="forget password" className="">
-                Forget Password ?
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-4">
-            <Button className="w-full">Submit</Button>
-          </div>
-        </form>
-        <p className="text-center mt-2 ">
+    <div className="flex justify-center items-center h-screen ">
+      <div className="w-full md:w-[550px] shadow-md rounded-xl py-5 px-10 bg-white">
+        <div>
+          <h1 className="text-4xl text-center font-extrabold bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text">
+            Clash
+          </h1>
+          <h1 className="text-3xl font-bold">Login</h1>
+          <p>Welcome back</p>
+        </div>
+        <Login />
+        <p className="text-center mt-2">
           Don't have an account ?{" "}
           <strong>
             <Link href="/register">Register</Link>
